@@ -1,0 +1,36 @@
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  table-layout: auto; /* Ensures the table fits within the container */
+  word-wrap: break-word; /* Allows words to be broken and wrap onto the next line */
+}
+
+th, td {
+  border: 1px solid #ddd; /* Adds a border around each cell */
+  padding: 8px;
+  overflow: hidden; /* Prevents content from overflowing */
+  text-overflow: ellipsis; /* Adds ellipsis (...) to clipped content */
+  white-space: nowrap; /* Prevents text from wrapping */
+  font-size: 10px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: center; 
+}
+
+.output_subarea {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.jp-OutputArea-output pre {
+  white-space: pre-wrap; /* Wrap text */
+}
+
+.dataframe thead th:nth-child(1),
+.dataframe td:nth-child(1) {
+    text-align: center; /* Optional: Center text */
+    width: 50px; /* Adjust width as needed */
+}
