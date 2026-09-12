@@ -1,10 +1,12 @@
-# Data Science Portfolio - Master of Technology (Data Science & Analytics)
+# Portfolio Projects
 
-Coursework and research projects from my Master of Technology in Data Science and Analytics
-at **Universiti Teknikal Malaysia Melaka (UTeM)**, plus the code behind them.
+**Muhammad Iman Firdaus Bin Md Rostan** — Data Analyst, Workforce & HR Analytics.
 
-**Muhammad Iman Firdaus Bin Md Rostan** · Data Analyst, Workforce & HR Analytics
-[LinkedIn](https://www.linkedin.com/in/firdausrostan/) · [GitHub](https://github.com/imanfirdaus27)
+This repo holds two sets of work: my **Master of Technology (Data Science & Analytics)**
+projects at **Universiti Teknikal Malaysia Melaka (UTeM)**, in the numbered folders below,
+and some **earlier analytics work** kept at the root of the repo.
+
+## Master's coursework and research
 
 | # | Project | Course | Stack | Headline result |
 |---|---------|--------|-------|-----------------|
@@ -51,5 +53,19 @@ describing them.
 | `06-neo4j-career-recommender/figures/` | 13 |
 | `09-superstore-powerbi/figures/` | 3 |
 
-The same figures are embedded in the Notion project notes, loaded from this repo's `main`
-branch, so the two stay in sync.
+The same figures are embedded in the Notion project notes, loaded from this repo's `main` branch, so the two stay in sync.
+
+## Earlier work (kept at the repo root)
+
+| File / folder | What it is |
+|---|---|
+| `Airbnb_Data_Understanding_&_Preparation.ipynb` | Airbnb data understanding and preparation notebook |
+| `COVID PORTFOLIO PROJECT SCRIPTS.sql` | COVID data exploration in SQL |
+| `NASHVILLE CLEANING DATA PROJECT.sql` | Nashville housing data cleaning in SQL |
+| `A Comparative Analysis of Restaurants Across ...` | Undergraduate comparative analysis |
+| `Anti Drone Operator System` | Undergraduate system project |
+| `Car Rental Payment Method System (Capstone)` | Undergraduate capstone |
+
+---
+
+[LinkedIn](https://www.linkedin.com/in/firdausrostan/) · [GitHub](https://github.com/imanfirdaus27)

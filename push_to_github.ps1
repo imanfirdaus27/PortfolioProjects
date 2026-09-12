@@ -1,11 +1,15 @@
 # push_to_github.ps1
-# 1. Create an EMPTY public repo on github.com named: data-science-portfolio
-#    (no README, no .gitignore, no licence - this folder already has them)
-# 2. Run this from the portfolio folder in PowerShell:
+# Pushes this folder into the EXISTING repo: github.com/imanfirdaus27/PortfolioProjects
+#
+# Run from the portfolio folder in PowerShell:
 #       cd "C:\Users\firda\Desktop\Master\data-science-portfolio"
 #       .\push_to_github.ps1
+#
+# The remote already has 11 commits of older work. This script merges that history in
+# (--allow-unrelated-histories) so nothing there is overwritten, then pushes. The new
+# folders (01-..., 02-..., etc.) sit alongside the existing files; no filenames collide.
 
-param([string]$RepoUrl = "https://github.com/imanfirdaus27/data-science-portfolio.git")
+param([string]$RepoUrl = "https://github.com/imanfirdaus27/PortfolioProjects.git")
 
 $ErrorActionPreference = "Stop"
 Set-Location -Path $PSScriptRoot
@@ -25,9 +29,18 @@ if (-not (git remote | Select-String -Quiet "origin")) {
 git add -A
 $pending = git status --porcelain
 if (-not [string]::IsNullOrWhiteSpace($pending)) {
-    git commit -m "Update portfolio"
+    git commit -m "Add Master's data science portfolio: 10 projects, code and 65 report figures"
 }
 
 git branch -M main
+
+# Bring the existing remote history in before pushing.
+git fetch origin
+$remoteMain = git ls-remote --heads origin main
+if (-not [string]::IsNullOrWhiteSpace($remoteMain)) {
+    Write-Host "Merging existing PortfolioProjects history..." -ForegroundColor Cyan
+    git pull origin main --allow-unrelated-histories --no-rebase --no-edit
+}
+
 git push -u origin main
-Write-Host "`nDone. Open $RepoUrl" -ForegroundColor Green
+Write-Host "`nDone. Open https://github.com/imanfirdaus27/PortfolioProjects" -ForegroundColor Green
