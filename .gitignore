@@ -1,0 +1,21 @@
+# datasets and model artefacts - too large for git, see each README for the source
+*.tar.xz
+*.zip
+*.h5
+*.pt
+*.ckpt
+data/raw/
+**/data/mvtec/
+**/runs/
+**/checkpoints/
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+# R
+.Rhistory
+.RData
+# os
+Thumbs.db
+.DS_Store
