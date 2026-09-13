@@ -20,11 +20,24 @@ and some **earlier analytics work** kept at the root of the repo.
 | [08](08-applied-statistics-r) | Applied statistical methods in R | MAXD 5133 | R | Chi-square, ANOVA, PCA, factor analysis, regression, logistic regression |
 | [09](09-superstore-powerbi) | Superstore sales & profit dashboards | MAXD 5153 | Power BI | Region x category heat map, state profit map, sales trend |
 | [10](10-matlab-image-processing-gui) | Interactive image-processing GUI | MAXD 5153 | MATLAB | Load, process and compare images in one app |
+| [11](11-hadoop-big-data-architecture) | Hadoop ecosystem & big data architecture (written) | MAXD 5123 | — | Hadoop 1 → YARN → Hadoop 3 → Spark → cloud, and the pain each one solved |
 
 ## How this repo is organised
-Every folder is self-contained: a `README.md` explaining the problem, data, method and
-results, plus the code exactly as it was submitted (notebooks are kept, and their code cells
-are also extracted into plain `.py` files so the logic is readable without opening Jupyter).
+
+Every folder is self-contained and its `README.md` is a full walkthrough, not a summary. Each one
+runs in the same order:
+
+1. **Why this project exists** — the real problem, not the assignment title
+2. **The concepts behind it** — the theory explained before it is used, so the rest makes sense
+3. **The data**, and the defects found in it before modelling
+4. **Method, step by step**, each step with the reason for it and the figure at the point it is needed
+5. **Results**, including the ones that did not work
+6. **What I would do differently**, and what I would say about it in an interview
+7. **How this connects to the other projects** — the same ideas recur across them
+
+The code is exactly as submitted (notebooks are kept, and their code cells are also extracted into
+plain `.py` files so the logic is readable without opening Jupyter). The same text is mirrored in
+my Notion project notes, so the two never drift.
 
 ## A note on group work
 Several projects were done in groups; each README names the group and says which part is

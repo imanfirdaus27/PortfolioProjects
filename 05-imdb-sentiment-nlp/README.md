@@ -30,7 +30,7 @@ Dataset: [IMDB 50K reviews](https://ai.stanford.edu/~amaas/data/sentiment/) (not
 
 ## Figures
 
-The 8 images below are the real figures from the MAXD 5153 Assignment 2 report, extracted from the submitted PDF.
+The 8 images below are the real figures from the MAXD 5153 Assignment 1 report, extracted from the submitted PDF.
 
 ![Word cloud after cleaning — a sanity check that the pipeline worked.](figures/01-wordcloud-after-cleaning.png)
 
