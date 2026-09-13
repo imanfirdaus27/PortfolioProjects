@@ -47,6 +47,10 @@ ones too light.
 Converting to grayscale before segmentation is not just about colour: it reduces three channels to
 one, which is what lets a single intensity threshold mean anything.
 
+![The weighted conversion beside a naive (R+G+B)/3, and the difference b](figures/04-grayscale-weights.jpg)
+
+*The weighted conversion beside a naive (R+G+B)/3, and the difference between them. The gap is not subtle — a plain average misrepresents brightness wherever green or blue dominate.*
+
 ### 2.3 Sharpening — unsharp masking
 
 `imsharpen` uses a technique with a confusing name, inherited from darkroom photography:
@@ -81,6 +85,10 @@ Why that matters for a GUI: it means no slider to tune. `imbinarize(gray)` adapt
 its own. Otsu's weakness is that it assumes a roughly bimodal histogram — two clear peaks — and
 gives a poor threshold on images with uneven lighting.
 
+![Otsu on a real image: the histogram split at the threshold that makes ](figures/02-otsu-threshold.png)
+
+*Otsu on a real image: the histogram split at the threshold that makes the two groups as internally uniform as possible, and the mask it produces. No parameter was chosen by hand.*
+
 ### 2.5 Morphological operations
 
 Morphology reshapes binary regions using a **structuring element** — a small shape swept over the
@@ -97,6 +105,10 @@ image.
 grows equally in all directions — whereas `strel('line', ...)` or `strel('square', ...)` would
 favour particular directions. Real image features are rarely axis-aligned, which is why a disk is
 the sensible default here.
+
+![The four operations on the same binary input with the same disk(5). Er](figures/03-morphology-comparison.jpg)
+
+*The four operations on the same binary input with the same disk(5). Erosion kills specks, dilation closes gaps, and opening/closing are the two orderings of that pair — each keeping a different thing.*
 
 ### 2.6 Event-driven programming, and why every callback needs a guard
 
@@ -242,6 +254,10 @@ Notice the design choice in `convertGrayscale`: it writes back to `images{curren
 operations **chain** — convert to grey, then sharpen the grey version. `doSegmentation` does not
 write back, so it is a one-shot view. Both behaviours are defensible; what matters is that the
 choice is deliberate and consistent.
+
+![The four operations chained in the order the app runs them: load → enh](figures/01-pipeline-demo.jpg)
+
+*The four operations chained in the order the app runs them: load → enhance → segment → morphology. Run here in Python with the same operations the MATLAB app calls, because the submitted report has no figures.*
 
 ## 6 · Step 3 — Keeping the interface honest
 

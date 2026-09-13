@@ -29,6 +29,10 @@ Hadoop 1.x (2011)          Hadoop 2.x (2013)            Hadoop 3.x (2017)
 
 ---
 
+![The three generations side by side, each with the pain that forced the](figures/01-hadoop-evolution.png)
+
+*The three generations side by side, each with the pain that forced the next one. Read the red text first — the architecture only makes sense as an answer to it.*
+
 ## 2 · The concepts behind these notes
 
 ### 2.1 What "big data" actually means
@@ -90,6 +94,10 @@ subsequent job reads it back. An iterative algorithm doing *k* passes costs abou
 read/write operations. Spark, holding the data in memory, costs about **1 + k**. That difference
 *is* the 10×–100× figure people quote.
 
+![The shaded area is the disk I/O Spark avoids by caching after the firs](figures/02-mapreduce-vs-spark-io.png)
+
+*The shaded area is the disk I/O Spark avoids by caching after the first read. It widens with every iteration, which is exactly why iterative machine learning was unusable on MapReduce.*
+
 ### 2.6 Single point of failure, and why it capped Hadoop 1
 
 The Hadoop 1 NameNode holds the entire filesystem namespace and block map **in memory, on one
@@ -116,6 +124,10 @@ That is what lets Spark, Tez and Hive all run on one cluster over the same data.
 **This is a pattern, not a Hadoop fact.** The same move — a thin generic platform plus per-workload
 logic — is what Kubernetes did for services later.
 
+![One overloaded process becomes three components with one job each. The](figures/04-yarn-separation-of-concerns.png)
+
+*One overloaded process becomes three components with one job each. The ApplicationMaster is the row that changed the ecosystem: application logic leaves the platform, so any engine can run on the cluster.*
+
 ### 2.8 Erasure coding — the storage arithmetic
 
 3× replication means 1 PB of data costs 3 PB of disk. **Erasure coding** stores the data plus
@@ -129,6 +141,10 @@ arithmetic, rather than just copying one. So erasure coding suits **cold data** 
 anything read rarely — while hot data stays replicated.
 
 On a petabyte cluster this is a budget line, not a footnote, which is why it defines Hadoop 3.
+
+![Same durability — survives three simultaneous failures — for half the ](figures/03-replication-vs-erasure-coding.png)
+
+*Same durability — survives three simultaneous failures — for half the disk. That arithmetic is the headline feature of Hadoop 3.*
 
 ### 2.9 Separation of storage and compute — why the cloud won
 

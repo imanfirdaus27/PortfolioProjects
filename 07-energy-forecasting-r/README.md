@@ -37,6 +37,10 @@ The **frequency** is how many observations make one seasonal cycle. For monthly 
 annual cycle, `frequency = 12`. Setting this wrong is the most common R time-series mistake:
 declare it 1 and every seasonal model silently becomes non-seasonal.
 
+![The same series split into trend, seasonality and remainder. `frequenc](figures/01-timeseries-decomposition.png)
+
+*The same series split into trend, seasonality and remainder. `frequency = 12` is what tells R the middle panel exists; set it to 1 and every seasonal model silently turns itself off.*
+
 ### 2.2 Stationarity, and why differencing exists
 
 A series is **stationary** when its statistical properties — mean, variance, autocorrelation —
@@ -96,7 +100,7 @@ A random train/test split on time-series data lets the model **see the future wh
 the past**. Hold out a random 20% of months and the model trains on December while forecasting
 November — and the reported accuracy is fiction.
 
-The correct procedure is a **chronological holdout**: train on the first 80% of the timeline,
+The correct procedure is a **chronological holdout**between* training months, so the model learns the future while predicting the past.*: train on the first 80% of the timeline,
 test on the last 20%, and refit the models on the training window only. Re-using a model fitted
 on the full data and then "evaluating" it on part of that data is the same mistake wearing a
 different hat.
@@ -104,6 +108,10 @@ different hat.
 (The more rigorous version is **rolling-origin cross-validation** — forecast one step, roll
 forward, repeat — which uses the data better. This project uses the single chronological split,
 which is the standard first step.)
+
+![The single most important methodological figure in the project. Top: `](figures/02-chronological-vs-random-split.png)
+
+*The single most important methodological figure in the project. Top: `window()` — the model never sees anything past the cut line. Bottom: `sample()` — test months sit *between* training months, so the model learns the future while predicting the past.*
 
 ### 2.6 Forecast accuracy metrics
 
@@ -140,6 +148,10 @@ smooth and shows the annual cycle clearly.
 Neither is "right". The rule is to **aggregate to the level where the pattern you care about
 lives**: hourly for diagnostics and data-quality checks, monthly for the seasonal forecast. A
 12-period seasonality only makes sense once you are on monthly data.
+
+![The same production data at three levels. Hourly is dominated by the d](figures/04-aggregation-levels.png)
+
+*The same production data at three levels. Hourly is dominated by the day/night cycle; daily removes it; monthly is where the annual signal finally becomes visible. A 12-period seasonality only means something on the bottom panel.*
 
 ### 2.9 Raster data, and turning pictures into numbers
 
@@ -284,6 +296,10 @@ test series so the **failure modes are visible**, not just summarised. A model c
 respectable RMSE while systematically missing every peak, and only the overlay shows that.
 
 ---
+
+![Both model families forecasting the same held-out window. The overlay ](figures/03-arima-vs-ets-forecast.png)
+
+*Both model families forecasting the same held-out window. The overlay is the point: the error metrics are close, but the two models miss in different places — and only the plot shows that.*
 
 ## 4 · Task 2 — Building a dataset from NASA heat-map images
 

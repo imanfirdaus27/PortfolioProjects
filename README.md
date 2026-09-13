@@ -51,34 +51,32 @@ screenshots, workflow diagrams — are in that project's `figures/` folder (36 i
 Small datasets are included. Large ones (MVTec AD, Sen1Floods11, the Airbnb Singapore
 snapshot, hourly energy production) are not - each README links to the source.
 
-## Report figures
+## Figures
 
-65 figures were extracted from the submitted PDF reports and committed alongside the code,
-so every project README shows the real charts, dashboards and screenshots rather than
-describing them.
+Every project README is illustrated. There are two kinds, and they are labelled as such:
+
+**Figures from the submitted reports** — extracted from the original PDF submissions:
 
 | Project | Figures |
 |---|---|
-| `02-mvtec-industrial-defect-ml/figures/` | 12 |
-| `03-ecommerce-purchase-prediction/figures/` | 16 |
-| `04-airbnb-price-occupancy-knime/figures/` | 13 |
-| `05-imdb-sentiment-nlp/figures/` | 8 |
-| `06-neo4j-career-recommender/figures/` | 13 |
-| `09-superstore-powerbi/figures/` | 3 |
+| `02-mvtec-industrial-defect-ml` | 12 |
+| `03-ecommerce-purchase-prediction` | 16 |
+| `04-airbnb-price-occupancy-knime` | 13 |
+| `05-imdb-sentiment-nlp` | 8 |
+| `06-neo4j-career-recommender` | 13 |
+| `09-superstore-powerbi` | 3 |
 
-The same figures are embedded in the Notion project notes, loaded from this repo's `main` branch, so the two stay in sync.
+**Figures made for these notes** — the remaining submissions contain no figures worth extracting
+(two are R scripts, one is a MATLAB app, one is a written essay, one is research in progress), so
+these were generated instead:
 
-## Earlier work (kept at the repo root)
+| Project | Figures | How they were made |
+|---|---|---|
+| `01-flood-segmentation-kd` | 5 | real IoU numbers from the training runs, plus diagrams and a speckle simulation |
+| `07-energy-forecasting-r` | 4 | synthetic series (the raw CSV is not in the repo), with both model families implemented |
+| `08-applied-statistics-r` | 9 | **computed from the real datasets in `08-applied-statistics-r/data/`** |
+| `10-matlab-image-processing-gui` | 4 | **the same operations the MATLAB app performs, run on a real image** |
+| `11-hadoop-big-data-architecture` | 4 | architecture diagrams |
 
-| File / folder | What it is |
-|---|---|
-| `Airbnb_Data_Understanding_&_Preparation.ipynb` | Airbnb data understanding and preparation notebook |
-| `COVID PORTFOLIO PROJECT SCRIPTS.sql` | COVID data exploration in SQL |
-| `NASHVILLE CLEANING DATA PROJECT.sql` | Nashville housing data cleaning in SQL |
-| `A Comparative Analysis of Restaurants Across ...` | Undergraduate comparative analysis |
-| `Anti Drone Operator System` | Undergraduate system project |
-| `Car Rental Payment Method System (Capstone)` | Undergraduate capstone |
-
----
-
-[LinkedIn](https://www.linkedin.com/in/firdausrostan/) · [GitHub](https://github.com/imanfirdaus27)
+The same figures appear in my Notion project notes, loaded from this repo's `main` branch, so the
+two stay in sync.

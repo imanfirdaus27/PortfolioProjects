@@ -41,6 +41,10 @@ TRAINING                                      DEPLOYMENT
 
 ---
 
+![The whole framework on one page. The optical branch exists only on the](figures/02-teacher-student-framework.png)
+
+*The whole framework on one page. The optical branch exists only on the left; at deployment the student runs on radar alone, and that is enforced by the architecture rather than promised in prose.*
+
 ## 3 · The concepts behind this thesis
 
 ### 3.1 Semantic segmentation, and how it is scored
@@ -59,6 +63,10 @@ Both ignore true negatives entirely, which is why they are used instead of accur
 that is 95% land, pixel accuracy is 95% for a model that predicts "no water anywhere". IoU is
 stricter than Dice for the same prediction — it penalises errors more heavily — so IoU is the
 number reported here.
+
+![The two metrics computed on one pair of masks. Same prediction, two nu](figures/03-iou-vs-dice.png)
+
+*The two metrics computed on one pair of masks. Same prediction, two numbers — IoU is always the harsher of the two, which is why it is the one reported here.*
 
 ### 3.2 SAR vs optical — why one is harder
 
@@ -80,6 +88,10 @@ taking a better picture.
 it appears dark. Roughen that surface with wind and it starts scattering energy back — and the
 flood looks like land.
 
+![The same scene in both sensors. Optical: water is obviously dark. SAR:](figures/05-sar-vs-optical.jpg)
+
+*The same scene in both sensors. Optical: water is obviously dark. SAR: the same water buried in speckle. Right-hand panel: wind roughening the lower water body so it stops looking like water at all. This is the problem the thesis exists to close.*
+
 ### 3.3 U-Net and why skip connections exist
 
 U-Net is an encoder–decoder built for segmentation:
@@ -95,6 +107,10 @@ directly. **That is the entire reason U-Net beats a plain encoder–decoder on s
 
 The **bottleneck** — the deepest, most compressed layer — holds the most semantic, least spatial
 representation. That is why it is the layer the pair-wise distillation compares (3.5).
+
+![The skip connections carry high-resolution detail straight across from](figures/04-unet-skip-connections.png)
+
+*The skip connections carry high-resolution detail straight across from encoder to decoder. Without them the decoder has to invent the shoreline from a heavily compressed representation, and it comes out blurred.*
 
 ### 3.4 Knowledge distillation
 
@@ -428,6 +444,10 @@ noise, and the gated variant is actually worse.
 That is the real state of the project, and the next experiments are aimed at it: the
 self-supervised teacher (3.9), data augmentation, and a proper sweep of α, β and the gate
 threshold rather than three hand-picked runs.
+
+![The real numbers from the runs in this repo. The two distilled student](figures/01-modality-gap.png)
+
+*The real numbers from the runs in this repo. The two distilled students sit on the baseline, not above it — and the 0.2017 gap to the optical teacher is still entirely open. This is the chart the next round of experiments has to change.*
 
 ## 9 · Ablations the config makes free
 

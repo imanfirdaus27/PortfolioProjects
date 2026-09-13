@@ -235,6 +235,10 @@ chisq.test(observed, p = expected_prop)
 One categorical variable against a theoretical distribution (2.4). Assumption to state: expected
 counts ≥ 5 in each cell.
 
+![Observed against expected counts for Q1. Every expected count clears t](figures/01-chisquare-observed-vs-expected.png)
+
+*Observed against expected counts for Q1. Every expected count clears the minimum of 5, so the chi-square approximation is valid — that check comes before reading the p-value, not after.*
+
 ## 4 · Q2 · Chi-square test of independence
 
 *"Are these two variables related?"*
@@ -291,14 +295,22 @@ fare_outliers <- titanic %>%
   filter(Fare < (Q1_fare - 1.5 * IQR_fare) | Fare > (Q3_fare + 1.5 * IQR_fare))
 ```
 
-A high fare is not automatically an error — first-class cabins really did cost that much — so the
+A high fare is not automatically an errorglobal* IQR fence drawn across it. A single global cut-off flags most of first class as outliers — and they are not errors, they are first class. This is why the rule has to be applied inside the population the value belongs to.* — first-class cabins really did cost that much — so the
 outliers are **reported, then boxplotted, then judged**. Auto-deleting them would delete the entire
 first class, which is a real and important part of the survival story.
 
 **5 · Types.** `Survived` and `Pclass` become factors with labels, so every later model treats them
 as categories rather than numbers.
 
-**6 · Missing values with `VIM` and `mice`** — the diagnose-then-impute discipline from 2.10.
+**6 · Missing values with `VIM` and `mice`***not** uniform. That single chart is the difference between MCAR and MAR (2.10), and it has to be looked at before `mice` runs.* — the diagnose-then-impute discipline from 2.10.
+
+![Fare by class, with the *global* IQR fence drawn across it. A single g](figures/03-titanic-fare-outliers.png)
+
+*Fare by class, with the *global* IQR fence drawn across it. A single global cut-off flags most of first class as outliers — and they are not errors, they are first class. The rule has to be applied inside the population the value belongs to.*
+
+![Left: how much is missing per column. Right: age missingness by class ](figures/02-titanic-missingness.png)
+
+*Left: how much is missing per column. Right: age missingness by class — and it is clearly **not** uniform. That single chart is the difference between MCAR and MAR (2.10), and it has to be looked at before `mice` runs.*
 
 ## 6 · Q5 · ANOVA — factors first
 
@@ -314,8 +326,12 @@ summary(aov(time ~ poison + treat, data = poisons))
 "does survival time increase linearly with poison ID?", which is meaningless. The `factor()` calls
 *are* the analysis.
 
-`time ~ poison + treat` is a two-way ANOVA testing both factors (2.5). Writing `poison * treat`
+`time ~ poison + treat` is a two-way ANOVA testing both factors (2.5). treat` would test.* Writing `poison * treat`
 instead would add the interaction term.
+
+![Left: survival time by poison, with the one-way ANOVA F and p. Right: ](figures/04-anova-poisons.png)
+
+*Left: survival time by poison, with the one-way ANOVA F and p. Right: the interaction plot — near-parallel lines mean the treatment effect does not depend much on which poison it is, which is exactly what `poison * treat` would test.*
 
 ## 7 · Q6 · PCA — scale, or the biggest unit wins
 
@@ -328,9 +344,17 @@ pca <- prcomp(decathlon[, 2:11], scale. = TRUE)      # seconds and metres are no
 Ten events measured in seconds, metres and points — the textbook case for 2.6. Without
 `scale. = TRUE`, the event with the largest numeric range becomes PC1 by arithmetic accident.
 
-Decathlon is a good PCA dataset precisely because the correlations are real and interpretable: PC1
+Decathlon is a good PCA dataset precisely because the correlations are realfor*.* and interpretable: PC1
 usually separates overall athletic ability, and PC2 the sprint/endurance or speed/strength
 trade-off.
+
+![Left: the scree plot — PC1 and PC2 together carry about half the varia](figures/05-pca-scree-and-scaling.png)
+
+*Left: the scree plot — PC1 and PC2 together carry about half the variance, which is typical for ten genuinely different events. Right: what happens without `scale. = TRUE` — one event takes over PC1 purely because its numbers are the biggest.*
+
+![The biplot: athletes as points, events as arrows. Arrows pointing the ](figures/06-pca-biplot.png)
+
+*The biplot: athletes as points, events as arrows. Arrows pointing the same way are correlated events — the throws cluster together and the sprints point the other way. This one chart is what PCA is *for*.*
 
 ## 8 · Q7 · Factor analysis — a different question from PCA
 
@@ -342,6 +366,10 @@ cars <- read.csv("../data/cars.csv")
 PCA compresses; factor analysis asks *what unobserved thing is generating these correlations*
 (2.7). Rotation via `GPArotation` then makes each factor load on a few variables instead of a
 little of everything, which is what makes it interpretable.
+
+![Loadings after varimax rotation. Rotation is what makes this readable:](figures/07-factor-loadings.png)
+
+*Loadings after varimax rotation. Rotation is what makes this readable: each factor loads heavily on a few variables and near-zero on the rest, instead of every factor being a little of everything.*
 
 ## 9 · Q8 · Multiple regression — the model plus the diagnostics
 
@@ -357,6 +385,10 @@ with the "holding the others constant" clause from 2.8.
 
 Then residual plots, because a good R² over a violated assumption is a wrong answer with a
 confident number attached.
+
+![The three plots that decide whether the R² means anything: residuals v](figures/08-regression-diagnostics.png)
+
+*The three plots that decide whether the R² means anything: residuals vs fitted (linearity), Q–Q (normal residuals), scale–location (constant variance). Nothing in `summary(model)` warns you when these fail.*
 
 ## 10 · Q9 · Logistic regression — full vs reduced
 
@@ -375,6 +407,10 @@ the full model to a reduced one — fewer predictors, and the question of whethe
 earned their place.
 
 ---
+
+![Why a straight line cannot model a 0/1 outcome: it walks straight into](figures/09-logistic-vs-linear.png)
+
+*Why a straight line cannot model a 0/1 outcome: it walks straight into the shaded bands, which are impossible probabilities. The logistic curve is bounded in (0, 1) by construction.*
 
 ## 11 · The five habits this assignment drilled
 
