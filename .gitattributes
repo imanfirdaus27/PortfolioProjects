@@ -1,0 +1,10 @@
+# GitHub works out the "language" of a repo from file sizes. The old exported
+# notebook HTML at the root is large enough to make this whole data-science
+# repo show up as an HTML project. Marking those files as generated keeps them
+# in the repo but out of the language statistics and out of diffs.
+*.html   linguist-generated=true
+*.knwf   linguist-generated=true
+*.pbix   linguist-generated=true
+
+# Count notebooks properly
+*.ipynb  linguist-detectable=true

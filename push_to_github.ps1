@@ -28,9 +28,25 @@ if (-not (git remote | Select-String -Quiet "origin")) {
     git remote set-url origin $RepoUrl
 }
 
+# If a previous run left a conflicted merge behind, clear it WITHOUT losing the
+# files in this folder. A bare `git merge --abort` resets the working tree back
+# to the last commit, which silently throws away newer files that were never
+# committed. So: back the folder up, abort, put the files back.
 if (Test-Path ".git\MERGE_HEAD") {
-    Write-Host "Clearing an unfinished merge from a previous run..." -ForegroundColor Yellow
+    Write-Host "Clearing an unfinished merge from a previous run (your files are preserved)..." -ForegroundColor Yellow
+    $backup = Join-Path $env:TEMP ("gitkeep_" + [guid]::NewGuid().ToString())
+    New-Item -ItemType Directory -Path $backup -Force | Out-Null
+    Get-ChildItem -Path $PSScriptRoot -File -Recurse -Force |
+        Where-Object { $_.FullName -notlike "*\.git\*" } |
+        ForEach-Object {
+            $rel  = $_.FullName.Substring($PSScriptRoot.Length + 1)
+            $dest = Join-Path $backup $rel
+            New-Item -ItemType Directory -Path (Split-Path $dest -Parent) -Force | Out-Null
+            Copy-Item $_.FullName $dest -Force
+        }
     git merge --abort
+    Copy-Item -Path (Join-Path $backup "*") -Destination $PSScriptRoot -Recurse -Force
+    Remove-Item $backup -Recurse -Force
 }
 
 git add -A
